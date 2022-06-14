@@ -1,22 +1,22 @@
 package com.example.tiktokdownloaded.model
 
-import android.provider.MediaStore
 import com.google.gson.annotations.SerializedName
-
-
 
 data class TikTokModel (
     @SerializedName("aweme_detail")
-    val awemeDetail: AwemeDetail
+    val awemeDetail: AwemeDetail?
 )
-
 data class AwemeDetail (
     @SerializedName("author")
     val author: Author,
     @SerializedName("video")
     val video : Video,
+    @SerializedName("music")
+    val music: Music,
     @SerializedName("share_info")
-    val shareInfo: ShareInfo
+    val shareInfo: ShareInfo,
+    @SerializedName("desc")
+    val desc: String
 )
 data class Author(
     @SerializedName("nickname")
@@ -29,6 +29,15 @@ data class Video(
     val duration: String,
     @SerializedName("play_addr")
     val play_addr: PlayAddr,
+)
+data class Music(
+    @SerializedName("play_url")
+    val playUrlMusic: PlayUrlMusic
+)
+
+data class PlayUrlMusic(
+    @SerializedName("uri")
+    val uri: String
 )
 data class OriginCover(
     @SerializedName("url_list")

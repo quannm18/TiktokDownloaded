@@ -7,32 +7,9 @@
     android:layout_height="match_parent"
     android:background="@color/bg_color"
     android:focusableInTouchMode="true"
-    tools:viewBindingIgnore="true"
-    tools:context=".view.fragment.HomeFragment">
+    tools:context=".view.fragment.HomeFragment"
+    tools:viewBindingIgnore="true">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarHome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:backgroundTint="@color/white"
-        android:minHeight="?attr/actionBarSize"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tvTbTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nova"
-            android:text="@string/tiktok_downloader"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-
-            android:textStyle="bold" />
-    </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilFind"
@@ -47,11 +24,13 @@
         app:layout_constraintEnd_toStartOf="@+id/btnPaste"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarHome"
+        app:layout_constraintTop_toTopOf="parent"
+
         app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
+
             android:layout_height="48dp"
             android:background="@drawable/custom_textinput"
             android:fontFamily="@font/nova"
@@ -68,16 +47,16 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="#000000"
+        android:fontFamily="@font/nova"
         android:text="@string/paste"
         android:textAllCaps="false"
         android:textSize="14sp"
         app:cornerRadius="8dp"
-        android:fontFamily="@font/nova"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarHome"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.button.MaterialButton
@@ -102,66 +81,230 @@
 
     <LinearLayout
         android:id="@+id/btnTutor"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:layout_marginBottom="30dp"
         android:background="@drawable/custom_outline_ask"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
         android:textAllCaps="false"
         app:cardCornerRadius="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="TouchTargetSizeCheck">
+
         <TextView
-            android:layout_weight="3"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:fontFamily="@font/nova"
-            android:textColor="@color/black"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="3"
+            android:fontFamily="@font/nova"
+            android:gravity="center"
             android:text="@string/how_to_use"
-            android:layout_marginEnd="8dp"/>
+            android:textAlignment="center"
+            android:textColor="@color/black" />
+
         <ImageView
-            android:layout_gravity="end"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="end"
             android:src="@drawable/ic_tutor" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/btnSetting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_setting"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbarHome"
-        app:layout_constraintEnd_toEndOf="@+id/toolbarHome"
-        app:layout_constraintTop_toTopOf="@+id/toolbarHome"
-        />
 
-    <ImageView
-        android:layout_marginEnd="16sp"
-        android:id="@+id/btnTV"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/layoutPreView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_tv"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbarHome"
-        app:layout_constraintEnd_toStartOf="@+id/btnSetting"
-        app:layout_constraintTop_toTopOf="@+id/toolbarHome"
-        />
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDownload"
+        app:layout_constraintVertical_bias="0.0">
 
-    <ImageView
-        android:id="@+id/btnKing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16sp"
-        android:src="@drawable/ic_crown"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbarHome"
-        app:layout_constraintEnd_toStartOf="@+id/btnTV"
-        app:layout_constraintTop_toTopOf="@+id/toolbarHome"
-        tools:ignore="ImageContrastCheck"
-        />
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14dp"
+            app:cardCornerRadius="4dp">
+
+            <ImageView
+                android:id="@+id/imgPreviewRow"
+                android:layout_width="60dp"
+                android:layout_height="80dp"
+                android:background="@color/black" />
+            <TextView
+                android:id="@+id/tvTimeVideoRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:fontFamily="@font/nova"
+                android:text="00:09"
+                android:textColor="@color/white"
+                android:layout_gravity="end|bottom"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="1dp"/>
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitleRow"
+                android:layout_width="153dp"
+                android:layout_height="36dp"
+                android:layout_marginBottom="8dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/nova"
+                android:maxLines="2"
+                android:text="@string/text_demo"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:showAsAction="always" />
+
+            <TextView
+                android:id="@+id/tvSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nova"
+                android:text="\@nameofuser"
+                android:textColor="#505359"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnDownloadVideo"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="30dp"
+        android:height="56dp"
+        android:background="@drawable/custom_button_blue"
+        android:backgroundTint="@color/secondary_blue"
+        android:drawableStart="@drawable/ic_camera_border"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:text="@string/download_video_no_watermark"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:cardCornerRadius="100dp"
+        app:cornerRadius="100dp"
+        app:icon="@drawable/ic_camera_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutPreView"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_camera_border" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nova"
+            android:text="@string/download_video_no_watermark"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnDownloadAudio"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="30dp"
+        android:height="56dp"
+        android:background="@drawable/custom_button_border"
+        android:drawableStart="@drawable/ic_camera_border"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:text="@string/download_video_no_watermark"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:cardCornerRadius="100dp"
+        app:cornerRadius="100dp"
+        app:icon="@drawable/ic_camera_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDownloadVideo"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_majesticons_music_note_line" />
+
+        <TextView
+            android:id="@+id/tvNoWatermark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nova"
+            android:text="@string/download_audio"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnDownloadThumb"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:height="56dp"
+        android:background="@drawable/custom_button_border"
+        android:drawableStart="@drawable/ic_camera_border"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:text="@string/download_video_no_watermark"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:cardCornerRadius="100dp"
+        app:cornerRadius="100dp"
+        app:icon="@drawable/ic_camera_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDownloadAudio"
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_majesticons_camera_line" />
+
+        <TextView
+            android:id="@+id/tvDownloadThumb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nova"
+            android:text="@string/download_thumbnail_jpg"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

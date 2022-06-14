@@ -10,4 +10,6 @@
     <color name="main_color">#EA4359</color>
     <color name="gray_color">#8C8D92</color>
     <color name="bg_color">#E5E5E5</color>
+    <color name="secondary_blue">#65D2E9</color>
+    <color name="gray_darker">#505259</color>
 </resources>

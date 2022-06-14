@@ -11,4 +11,8 @@
     <string name="paste">Paste</string>
     <string name="how_to_use">How To Use?</string>
     <string name="download_video">Download Video</string>
+    <string name="text_demo">Title Lorem ipsum dolor sit ame, consectetur ipsum...</string>
+    <string name="download_video_no_watermark">Download video (No-watermark)</string>
+    <string name="download_audio">Download Audio</string>
+    <string name="download_thumbnail_jpg">Download Thumbnail (JPG)</string>
 </resources>
