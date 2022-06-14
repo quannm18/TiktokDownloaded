@@ -6,12 +6,14 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import com.example.tiktokdownloaded.model.TikTokModel
 
 class DownLoadVideo {
     var mydownloadid : Long = 0
     public fun download(tikTokModel: TikTokModel, context: Context){
+        Log.d("TAG", "download: ${tikTokModel.awemeDetail.video.play_addr.url_list.get(2)}")
         var request = DownloadManager.Request(
             Uri.parse(tikTokModel.awemeDetail.video.play_addr.url_list.get(2))
         ).setTitle(tikTokModel?.awemeDetail?.shareInfo?.share_desc)

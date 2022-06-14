@@ -1,7 +1,12 @@
 package com.example.tiktokdownloaded
 
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
+import android.util.Log.d
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
@@ -14,6 +19,7 @@ import com.example.tiktokdownloaded.adapter.VPAdapter
 import com.example.tiktokdownloaded.repository.Repository
 import com.example.tiktokdownloaded.viewmodel.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.logging.Logger
 
 class MainActivity : AppCompatActivity() {
     private val bottomView: BottomNavigationView by lazy { findViewById<BottomNavigationView>(R.id.bottomView) }
