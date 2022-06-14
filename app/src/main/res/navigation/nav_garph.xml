@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_garph"
+    app:startDestination="@id/btm_home">
+
+    <fragment
+        android:id="@+id/btm_home"
+        android:name="com.example.tiktokdownloaded.view.fragment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/btm_my_file"
+        android:name="com.example.tiktokdownloaded.view.fragment.MyFileFragment"
+        android:label="fragment_my_file"
+        tools:layout="@layout/fragment_my_file" />
+    <fragment
+        android:id="@+id/btm_trend"
+        android:name="com.example.tiktokdownloaded.view.fragment.TrendingFragment"
+        android:label="fragment_trending"
+        tools:layout="@layout/fragment_trending" />
+    <fragment
+        android:id="@+id/btm_explore"
+        android:name="com.example.tiktokdownloaded.view.fragment.ExploreFragment"
+        android:label="fragment_explore"
+        tools:layout="@layout/fragment_explore" />
+</navigation>

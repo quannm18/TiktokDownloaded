@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:focusableInTouchMode="true"
+    tools:viewBindingIgnore="true"
+    tools:context=".view.fragment.HomeFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarHome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:backgroundTint="@color/white"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvTbTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nova"
+            android:text="@string/tiktok_downloader"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilFind"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnPaste"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarHome"
+        app:layout_constraintVertical_bias="0.0">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/custom_textinput"
+            android:fontFamily="@font/nova"
+            android:hint="@string/please_paste_link_here"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPaste"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#000000"
+        android:text="@string/paste"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:cornerRadius="8dp"
+        android:fontFamily="@font/nova"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarHome"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDownload"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:alpha="0.5"
+        android:fontFamily="@font/nova"
+        android:text="@string/download_video"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:cornerRadius="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilFind"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="TextContrastCheck" />
+
+    <LinearLayout
+        android:id="@+id/btnTutor"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/custom_outline_ask"
+        android:textAllCaps="false"
+        app:cardCornerRadius="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TouchTargetSizeCheck">
+        <TextView
+            android:layout_weight="3"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:fontFamily="@font/nova"
+            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/how_to_use"
+            android:layout_marginEnd="8dp"/>
+        <ImageView
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_tutor" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/btnSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_setting"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbarHome"
+        app:layout_constraintEnd_toEndOf="@+id/toolbarHome"
+        app:layout_constraintTop_toTopOf="@+id/toolbarHome"
+        />
+
+    <ImageView
+        android:layout_marginEnd="16sp"
+        android:id="@+id/btnTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_tv"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbarHome"
+        app:layout_constraintEnd_toStartOf="@+id/btnSetting"
+        app:layout_constraintTop_toTopOf="@+id/toolbarHome"
+        />
+
+    <ImageView
+        android:id="@+id/btnKing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16sp"
+        android:src="@drawable/ic_crown"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbarHome"
+        app:layout_constraintEnd_toStartOf="@+id/btnTV"
+        app:layout_constraintTop_toTopOf="@+id/toolbarHome"
+        tools:ignore="ImageContrastCheck"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
