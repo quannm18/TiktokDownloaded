@@ -15,4 +15,9 @@
     <string name="download_video_no_watermark">Download video (No-watermark)</string>
     <string name="download_audio">Download Audio</string>
     <string name="download_thumbnail_jpg">Download Thumbnail (JPG)</string>
+    <string name="title_lorem_ipsum_dolor_sit_ame_consectetur_ipsum">Title Lorem ipsum dolor sit ame, consectetur ipsum...</string>
+    <string name="nameofuser">/@nameofuser</string>
+    <string name="no_watermark">No-watermark</string>
+    <string name="_15mps">15Mps</string>
+    <string name="downloading">Downloading...</string>
 </resources>

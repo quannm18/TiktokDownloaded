@@ -8,6 +8,7 @@
         <entry key="..\:/Android/FileSave/TiktokDownloaded/app/src/main/res/drawable/custom_color_bg_bottom.xml" value="0.1405" />
         <entry key="..\:/Android/FileSave/TiktokDownloaded/app/src/main/res/drawable/custom_outline_ask.xml" value="0.2085" />
         <entry key="..\:/Android/FileSave/TiktokDownloaded/app/src/main/res/drawable/custom_selected_btm.xml" value="0.1495" />
+        <entry key="..\:/Android/FileSave/TiktokDownloaded/app/src/main/res/drawable/custom_text_bg.xml" value="0.3585" />
         <entry key="..\:/Android/FileSave/TiktokDownloaded/app/src/main/res/drawable/custom_textinput.xml" value="0.2085" />
         <entry key="..\:/Android/FileSave/TiktokDownloaded/app/src/main/res/drawable/custom_toolbar.xml" value="0.2665" />
         <entry key="..\:/Android/FileSave/TiktokDownloaded/app/src/main/res/drawable/ic_camera_border.xml" value="0.3675" />
@@ -26,6 +27,7 @@
         <entry key="..\:/Android/FileSave/TiktokDownloaded/app/src/main/res/layout/fragment_my_file.xml" value="0.14358974358974358" />
         <entry key="..\:/Android/FileSave/TiktokDownloaded/app/src/main/res/layout/fragment_no_found.xml" value="0.35260416666666666" />
         <entry key="..\:/Android/FileSave/TiktokDownloaded/app/src/main/res/layout/fragment_trending.xml" value="0.14358974358974358" />
+        <entry key="..\:/Android/FileSave/TiktokDownloaded/app/src/main/res/layout/row_myfile.xml" value="0.33" />
         <entry key="..\:/Android/FileSave/TiktokDownloaded/app/src/main/res/layout/row_preview_after_download.xml" value="0.365625" />
         <entry key="..\:/Android/FileSave/TiktokDownloaded/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
       </map>
