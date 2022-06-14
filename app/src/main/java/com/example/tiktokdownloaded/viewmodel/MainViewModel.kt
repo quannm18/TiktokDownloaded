@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class MainViewModel(private val repository: Repository) : ViewModel(){
-    private val myResponse : MutableLiveData<Response<TikTokModel>> = MutableLiveData()
+    public val myResponse : MutableLiveData<Response<TikTokModel>> = MutableLiveData()
 
     fun getPostTikTok(id: String){
         viewModelScope.launch {

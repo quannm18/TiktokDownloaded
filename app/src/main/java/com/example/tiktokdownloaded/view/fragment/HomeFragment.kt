@@ -1,6 +1,9 @@
 package com.example.tiktokdownloaded.view.fragment
 
+import android.app.DownloadManager
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,10 +14,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.tiktokdownloaded.MainViewModelFactory
 import com.example.tiktokdownloaded.R
+import com.example.tiktokdownloaded.model.TikTokModel
 import com.example.tiktokdownloaded.repository.Repository
+import com.example.tiktokdownloaded.viewmodel.DownLoadVideo
 import com.example.tiktokdownloaded.viewmodel.MainViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
@@ -36,7 +42,8 @@ class HomeFragment : Fragment() {
         toolbarHome.setBackgroundColor(R.color.white)
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
-        val viewModel = ViewModelProvider(this,viewModelFactory).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this,viewModelFactory).get(MainViewModel::class.java)
+        val downLoadVideo = DownLoadVideo()
         tilFind.editText!!.setOnFocusChangeListener { _, focus ->
             run {
                 if (focus) {
@@ -52,6 +59,18 @@ class HomeFragment : Fragment() {
             tilFind.error = setErrorForTI(txtFind)
 
             val id = getIDFromUrl(txtFind)
+            viewModel.getPostTikTok(id as String)
+            viewModel.myResponse.observe(viewLifecycleOwner, Observer {
+                    response->
+                if (response.isSuccessful){
+                    Log.e("awemeDetail",response.body().toString())
+                    val  tikTokModel:TikTokModel = response.body()!!
+                    downLoadVideo.download(tikTokModel, context!!)
+
+                }else{
+                    tilFind.editText!!.setText(response.code().toString())
+                }
+            })
             Log.e("id","$id")
         })
     }
@@ -86,4 +105,5 @@ class HomeFragment : Fragment() {
                 }
             }
     }
+
 }
