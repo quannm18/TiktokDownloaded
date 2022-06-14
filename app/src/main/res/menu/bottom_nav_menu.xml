@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/btm_home"
+        android:visible="true"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home"/>
+
+    <item android:id="@+id/btm_my_file"
+        android:visible="true"
+        android:icon="@drawable/ic_myfile"
+        android:title="@string/my_file"/>
+    <item android:id="@+id/btm_trend"
+        android:visible="true"
+        android:icon="@drawable/ic_trending"
+        android:title="@string/trending"/>
+    <item android:id="@+id/btm_explore"
+        android:visible="true"
+        android:icon="@drawable/ic_explore"
+        android:title="@string/explore"/>
+</menu>
