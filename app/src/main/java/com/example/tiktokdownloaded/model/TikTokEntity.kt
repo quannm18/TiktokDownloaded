@@ -13,11 +13,12 @@ data class TikTokEntity (
     val urlThumbnail: String,
     val author: String,
     val duration: String,
+    val fileName: String,
     val date: String,
     )
 
 
-fun convertTikTok(tikTokModel: TikTokModel, date: String): TikTokEntity {
+fun convertTikTok(tikTokModel: TikTokModel, date: String, fileName: String): TikTokEntity {
     return TikTokEntity(
         id = 0,
         title = tikTokModel.awemeDetail!!.desc,
@@ -26,6 +27,7 @@ fun convertTikTok(tikTokModel: TikTokModel, date: String): TikTokEntity {
         urlThumbnail = tikTokModel.awemeDetail.video.origin_cover.url_list[0],
         author = tikTokModel.awemeDetail.author.nickname,
         duration = tikTokModel.awemeDetail.video.duration,
+        fileName = fileName,
         date = date
     )
 }

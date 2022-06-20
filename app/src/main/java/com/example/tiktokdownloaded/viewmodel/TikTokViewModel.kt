@@ -12,13 +12,13 @@ import kotlinx.coroutines.launch
 
 class TikTokViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val readAllData : LiveData<List<TikTokEntity>>
+    val readAllData : LiveData<List<TikTokEntity>>
     private val tikTokRoomRepository : TikTokRoomRepository
 
     init {
-        val tikTokDAO = TikTokDatabase.getDatabase(application).tikTokDAO()
+        val mTikTokDAO = TikTokDatabase.getDatabase(application).tikTokDAO()
 
-        tikTokRoomRepository = TikTokRoomRepository(tikTokDAO)
+        tikTokRoomRepository = TikTokRoomRepository(mTikTokDAO)
         readAllData = tikTokRoomRepository.readAllData
     }
 
@@ -27,4 +27,5 @@ class TikTokViewModel(application: Application) : AndroidViewModel(application) 
             tikTokRoomRepository.addTikTok(tikTokEntity)
         }
     }
+
 }

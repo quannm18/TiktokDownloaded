@@ -16,9 +16,8 @@ abstract class TikTokDatabase : RoomDatabase() {
         private var INSTANCE : TikTokDatabase ? =null
 
         fun getDatabase(context: Context): TikTokDatabase{
-            var tempInstance = INSTANCE
-
-            if (tempInstance!=null){
+            val tempInstance = INSTANCE
+            if(tempInstance != null){
                 return tempInstance
             }
             synchronized(this){
@@ -27,7 +26,6 @@ abstract class TikTokDatabase : RoomDatabase() {
                     TikTokDatabase::class.java,
                     "tiktok_database"
                 ).build()
-
                 INSTANCE = instance
                 return instance
             }
