@@ -2,9 +2,8 @@ package com.example.tiktokdownloaded.view.fragment
 
 import android.Manifest
 import android.app.DownloadManager
+import android.content.*
 import android.content.ClipDescription.MIMETYPE_TEXT_PLAIN
-import android.content.ClipboardManager
-import android.content.Context
 import android.content.Context.DOWNLOAD_SERVICE
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -15,6 +14,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.core.content.ContextCompat.getSystemService
@@ -24,14 +24,19 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.tiktokdownloaded.MainViewModelFactory
 import com.example.tiktokdownloaded.R
+import com.example.tiktokdownloaded.model.TikTokEntity
 import com.example.tiktokdownloaded.model.TikTokModel
 import com.example.tiktokdownloaded.repository.Repository
 import com.example.tiktokdownloaded.viewmodel.MainViewModel
+import com.example.tiktokdownloaded.viewmodel.TikTokViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.imgPreviewRow
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.row_preview_after_download.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.time.Duration
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
@@ -41,13 +46,19 @@ class HomeFragment : Fragment() {
     private var downloadID: Long = 0
     lateinit var  tikTokModel: TikTokModel ;
     private var isShow : Int = 0;
+    private lateinit var tikTokViewModel: TikTokViewModel
+
+    private var isSuccess : Boolean =false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
+        tikTokViewModel = ViewModelProvider(this).get(TikTokViewModel::class.java)
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -124,6 +135,12 @@ class HomeFragment : Fragment() {
 
             haveStoragePermission(context!!,tikTokModel,0)
 
+            if (isSuccess){
+                val dateNow: Duration = System.currentTimeMillis().toDuration(DurationUnit.MILLISECONDS)
+                val simpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
+                tikTokViewModel.addTikTok(convertTikTok(tikTokModel,simpleDateFormat.format(dateNow)))
+            }
+
         })
         btnDownloadAudio.setOnClickListener(View.OnClickListener {
 
@@ -181,6 +198,17 @@ class HomeFragment : Fragment() {
         val downloadManager = context!!.getSystemService(DOWNLOAD_SERVICE) as DownloadManager
         downloadID =
             downloadManager.enqueue(request)
+        var br = object : BroadcastReceiver(){
+            override fun onReceive(p0: Context?, p1: Intent?) {
+                var  id = p1?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID,-1)
+                if (id==downloadID){
+                    isSuccess = true
+                    Toast.makeText(p0,"Completed", Toast.LENGTH_LONG).show()
+                }
+            }
+
+        }
+        requireContext().registerReceiver(br, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
     }
     fun downloadAudio(url: String?, fileName:String) {
         val download_Uri: Uri = Uri.parse(url)
@@ -197,6 +225,16 @@ class HomeFragment : Fragment() {
         val downloadManager = context!!.getSystemService(DOWNLOAD_SERVICE) as DownloadManager
         downloadID =
             downloadManager.enqueue(request)
+        var br = object : BroadcastReceiver(){
+            override fun onReceive(p0: Context?, p1: Intent?) {
+                var  id = p1?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID,-1)
+                if (id==downloadID){
+                    Toast.makeText(p0,"Completed", Toast.LENGTH_LONG).show()
+                }
+            }
+
+        }
+        requireContext().registerReceiver(br, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
     }
     fun downloadThumb(url: String?, fileName:String) {
         val download_Uri: Uri = Uri.parse(url)
@@ -213,6 +251,16 @@ class HomeFragment : Fragment() {
         val downloadManager = context!!.getSystemService(DOWNLOAD_SERVICE) as DownloadManager
         downloadID =
             downloadManager.enqueue(request)
+        var br = object : BroadcastReceiver(){
+            override fun onReceive(p0: Context?, p1: Intent?) {
+                var  id = p1?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID,-1)
+                if (id==downloadID){
+                    Toast.makeText(p0,"Completed", Toast.LENGTH_LONG).show()
+                }
+            }
+
+        }
+        requireContext().registerReceiver(br, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
     }
     fun haveStoragePermission(context: Context, tikTokModel: TikTokModel, type: Int): Boolean {
         return if (Build.VERSION.SDK_INT >= 23) {
@@ -260,5 +308,17 @@ class HomeFragment : Fragment() {
             pasteData = item.text.toString()
         }
         return pasteData
+    }
+    fun convertTikTok(tikTokModel: TikTokModel, date: String): TikTokEntity {
+        return TikTokEntity(
+            id = 0,
+            title = tikTokModel.awemeDetail!!.desc,
+            urlVideo = tikTokModel.awemeDetail.video.play_addr.url_list[2],
+            urlMusic = tikTokModel.awemeDetail.music.playUrlMusic.uri,
+            urlThumbnail = tikTokModel.awemeDetail.video.origin_cover.url_list[0],
+            author = tikTokModel.awemeDetail.author.nickname,
+            duration = tikTokModel.awemeDetail.video.duration,
+            date = date
+        )
     }
 }
