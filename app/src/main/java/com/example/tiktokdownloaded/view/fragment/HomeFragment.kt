@@ -77,6 +77,10 @@ class HomeFragment : Fragment() {
                     btnDownload.alpha = 1F;
 
                 }else{
+                    view.layoutPreView.visibility = View.GONE
+                    view.btnDownloadVideo.visibility = View.GONE
+                    view.btnDownloadAudio.visibility = View.GONE
+                    view.btnDownloadThumb.visibility = View.GONE
                     btnDownload.alpha = 0.5F;
                 }
             }

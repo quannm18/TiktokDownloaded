@@ -20,4 +20,6 @@
     <string name="no_watermark">No-watermark</string>
     <string name="_15mps">15Mps</string>
     <string name="downloading">Downloading...</string>
+    <string name="tiktok">TIKTOK</string>
+    <string name="video_download">VIDEO DOWNLOAD</string>
 </resources>

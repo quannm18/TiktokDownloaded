@@ -12,6 +12,6 @@ interface TikTokDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addTikTokToDB(tikTokEntity: TikTokEntity);
 
-    @Query("SELECT * FROM tiktok_table ORDER BY id ASC")
+    @Query("SELECT * FROM tiktok_table ORDER BY id DESC")
     fun readData():LiveData<List<TikTokEntity>>
 }
