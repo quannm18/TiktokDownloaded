@@ -6,6 +6,7 @@ import android.content.*
 import android.content.ClipDescription.MIMETYPE_TEXT_PLAIN
 import android.content.Context.DOWNLOAD_SERVICE
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -35,6 +36,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.imgPreviewRow
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.row_preview_after_download.*
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.time.DurationUnit
@@ -205,16 +207,37 @@ class HomeFragment : Fragment() {
         var br = object : BroadcastReceiver(){
             override fun onReceive(p0: Context?, p1: Intent?) {
                 var  id = p1?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID,-1)
-                if (id==downloadID){
-                    isSuccess =true
-                    Toast.makeText(p0,"Completed", Toast.LENGTH_LONG).show()
 
-                    fileNameDB = p1?.getStringExtra(DownloadManager.COLUMN_TITLE).toString()
-                    val date = getCurrentDateTime()
-                    val dateInString = date.toString("dd/MM/yyyy")
-                    tikTokViewModel.addTikTok(convertTikTok(tikTokModel, dateInString, fileName))
-                    Toast.makeText(requireContext(),"Insert",Toast.LENGTH_SHORT).show()
+                if (id!=downloadID){
+                    return
                 }
+                val cursor: Cursor = downloadManager.query(DownloadManager.Query().setFilterById(id));
+                if (cursor.moveToFirst()) {
+                    val status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
+                    if(status == DownloadManager.STATUS_SUCCESSFUL){
+
+                        // download is successful
+                        isSuccess =true
+                        Toast.makeText(p0,"Completed", Toast.LENGTH_LONG).show()
+
+                        fileNameDB = p1?.getStringExtra(DownloadManager.COLUMN_TITLE).toString()
+                        val date = getCurrentDateTime()
+                        val dateInString = date.toString("dd/MM/yyyy")
+                        tikTokViewModel.addTikTok(convertTikTok(tikTokModel, dateInString, fileName))
+                        Toast.makeText(requireContext(),"Insert",Toast.LENGTH_SHORT).show()
+                    }
+                    else {
+                        // download is cancelled
+                        Toast.makeText(p0,"Error", Toast.LENGTH_LONG).show()
+
+                    }
+                }
+                else {
+                    // download is cancelled
+                    Toast.makeText(p0,"Error", Toast.LENGTH_LONG).show()
+
+                }
+
             }
 
         }
@@ -283,7 +306,7 @@ class HomeFragment : Fragment() {
                 Log.e("link", tikTokModel.awemeDetail!!.video.play_addr.url_list[1])
                 val fileName = "tiktok_${System.currentTimeMillis()}"
                 if (type==0){
-                    downloadVideo(tikTokModel.awemeDetail!!.video.play_addr.url_list[2], fileName)
+                    downloadVideo(tikTokModel.awemeDetail!!.video.play_addr.url_list[1], fileName)
                 }else if (type==1){
                     downloadAudio(tikTokModel.awemeDetail!!.music.playUrlMusic.uri, fileName)
                 }else if (type ==2){
@@ -327,7 +350,7 @@ class HomeFragment : Fragment() {
         return TikTokEntity(
             id = 0,
             title = tikTokModel.awemeDetail!!.desc,
-            urlVideo = tikTokModel.awemeDetail.video.play_addr.url_list[2],
+            urlVideo = tikTokModel.awemeDetail.video.play_addr.url_list[1],
             urlMusic = tikTokModel.awemeDetail.music.playUrlMusic.uri,
             urlThumbnail = tikTokModel.awemeDetail.video.origin_cover.url_list[0],
             author = tikTokModel.awemeDetail.author.nickname,

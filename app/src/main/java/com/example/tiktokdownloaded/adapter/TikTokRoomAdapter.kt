@@ -3,6 +3,7 @@ package com.example.tiktokdownloaded.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.tiktokdownloaded.R
@@ -23,9 +24,6 @@ class TikTokRoomAdapter : RecyclerView.Adapter<TikTokRoomAdapter.TikTokViewHolde
 
     override fun onBindViewHolder(holder: TikTokViewHolder, position: Int) {
         val tikTokEntity = tikTokList[position]
-        holder.itemView.setOnClickListener(View.OnClickListener {
-
-        })
 
         if (holder.adapterPosition%2==0){
             holder.itemView.boxDownloadingRow.visibility = View.GONE
@@ -43,6 +41,8 @@ class TikTokRoomAdapter : RecyclerView.Adapter<TikTokRoomAdapter.TikTokViewHolde
             String.format("%02d:%02d", m, s)
         }
         holder.itemView.tvDurationListRow.setText(timeString)
+
+
 
     }
 
