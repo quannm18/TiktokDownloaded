@@ -57,6 +57,10 @@ class TikTokChildAdapter : RecyclerView.Adapter<TikTokChildAdapter.TikTokViewHol
         holder.itemView.setOnClickListener {
             Toast.makeText(holder.itemView.context, "${tikTokEntity.id} ${tikTokEntity.urlVideo}", Toast.LENGTH_SHORT).show()
         }
+
+        holder.itemView.setOnClickListener() {
+            holder.itemView.cbRow.isSelected = true
+        }
     }
 
     override fun getItemViewType(position: Int): Int {

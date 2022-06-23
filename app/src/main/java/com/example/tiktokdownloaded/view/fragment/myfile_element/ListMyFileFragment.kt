@@ -1,9 +1,12 @@
 package com.example.tiktokdownloaded.view.fragment.myfile_element
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -21,7 +24,8 @@ class ListMyFileFragment : Fragment() {
     private var listEntity: List<TikTokEntity> = mutableListOf()
     private var sortListEntity: List<TikTokEntity> = mutableListOf()
     private var listParent: MutableList<TikTokRow> = ArrayList<TikTokRow>()
-
+    private var listFind: MutableList<TikTokEntity> = ArrayList<TikTokEntity>()
+    private lateinit var alertDialog: AlertDialog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,8 +36,6 @@ class ListMyFileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         val adapter = TikTokChildAdapter()
         val rcvMain = view.rcvMain
         val layoutManager = LinearLayoutManager(requireContext())
@@ -44,7 +46,7 @@ class ListMyFileFragment : Fragment() {
         mTikTokViewModel = ViewModelProvider(this).get(TikTokViewModel::class.java)
         mTikTokViewModel.readAllData.observe(viewLifecycleOwner, Observer { tikTokEntity ->
             val listTitle = tikTokEntity.mapTo(HashSet(tikTokEntity.size)) { it.date }
-
+            listEntity = tikTokEntity
             val groupList = tikTokEntity.groupBy { it.date }
             for (i in listTitle.size - 1 downTo 0) {
                 val title = listTitle.elementAt(i)
@@ -56,6 +58,40 @@ class ListMyFileFragment : Fragment() {
             adapter.setTikTokList(tikTokEntity)
             adapter.notifyDataSetChanged()
 
+        })
+
+        view.svMyFile.setOnEditorActionListener(TextView.OnEditorActionListener { textView, i, keyEvent ->
+            val text = view.svMyFile.text
+            var count = 0
+            for (i in listEntity.indices) {
+                if (listEntity[i].title.lowercase().contains(text, true)) {
+                    listFind.add(listEntity[i])
+                    count++
+                }
+            }
+            if (count == 0) {
+                val dialog = AlertDialog.Builder(requireContext())
+                dialog.setTitle("Alert")
+                dialog.setMessage("Data not found")
+                dialog.setPositiveButton("Ok", DialogInterface.OnClickListener { dialogInterface, i ->
+                    alertDialog.dismiss()
+                })
+                alertDialog = dialog.create()
+                alertDialog.show()
+            } else {
+                val dialog = AlertDialog.Builder(requireContext())
+                dialog.setTitle("Alert")
+                dialog.setMessage("Found")
+                dialog.setPositiveButton("Ok", DialogInterface.OnClickListener { dialogInterface, i ->
+                    alertDialog.dismiss()
+                })
+                alertDialog = dialog.create()
+                alertDialog.show()
+                adapter.setTikTokList(listFind)
+                adapter.notifyDataSetChanged()
+                rcvMain.adapter = adapter
+            }
+            false
         })
     }
 

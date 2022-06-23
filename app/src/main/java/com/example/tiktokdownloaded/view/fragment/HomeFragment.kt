@@ -208,7 +208,8 @@ class HomeFragment : Fragment() {
         downloadID =
             downloadManager.enqueue(request)
 
-        var br = object : BroadcastReceiver() {
+        var br :BroadcastReceiver? = null
+        br= object : BroadcastReceiver() {
             override fun onReceive(p0: Context?, p1: Intent?) {
                 var id = p1?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
 
@@ -223,7 +224,7 @@ class HomeFragment : Fragment() {
                     if (status == DownloadManager.STATUS_SUCCESSFUL) {
                         // download is successful
                         isSuccess = true
-                        Toast.makeText(p0, "Completed", Toast.LENGTH_LONG).show()
+                        Toast.makeText(p0, "Completed", Toast.LENGTH_SHORT).show()
                         fileNameDB = p1?.getStringExtra(DownloadManager.COLUMN_TITLE).toString()
                         val date = getCurrentDateTime()
                         val dateInString = date.toString("dd/MM/yyyy")
@@ -231,16 +232,16 @@ class HomeFragment : Fragment() {
                         val tikTokEntity = convertTikTok(tikTokModel, dateInString, fileName)
                         tikTokViewModel.addTikTok(tikTokEntity)
                         Toast.makeText(requireContext(), "Insert", Toast.LENGTH_SHORT).show()
-//                        Log.e("llll","${tikTokEntity.urlVideo}")
+                        requireContext().unregisterReceiver(br)
                     } else {
                         // download is cancelled
-                        Toast.makeText(p0, "Error", Toast.LENGTH_LONG).show()
-
+                        Toast.makeText(p0, "Error", Toast.LENGTH_SHORT).show()
+                        requireContext().unregisterReceiver(br)
                     }
                 } else {
                     // download is cancelled
-                    Toast.makeText(p0, "Error", Toast.LENGTH_LONG).show()
-
+                    Toast.makeText(p0, "Error", Toast.LENGTH_SHORT).show()
+                    requireContext().unregisterReceiver(br)
                 }
 
             }
@@ -264,14 +265,18 @@ class HomeFragment : Fragment() {
         val downloadManager = requireContext().getSystemService(DOWNLOAD_SERVICE) as DownloadManager
         downloadID =
             downloadManager.enqueue(request)
-        var br = object : BroadcastReceiver() {
+        var br :BroadcastReceiver? = null
+        br= object : BroadcastReceiver() {
             override fun onReceive(p0: Context?, p1: Intent?) {
                 var id = p1?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
                 if (id == downloadID) {
-                    Toast.makeText(p0, "Completed", Toast.LENGTH_LONG).show()
+                    Toast.makeText(p0, "Completed Download Audio", Toast.LENGTH_SHORT).show()
+                    requireContext().unregisterReceiver(br)
+                }else{
+                    Toast.makeText(p0, "Error", Toast.LENGTH_SHORT).show()
+                    requireContext().unregisterReceiver(br)
                 }
             }
-
         }
         requireContext().registerReceiver(br, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
@@ -292,17 +297,20 @@ class HomeFragment : Fragment() {
         val downloadManager = requireContext().getSystemService(DOWNLOAD_SERVICE) as DownloadManager
         downloadID =
             downloadManager.enqueue(request)
-        var br = object : BroadcastReceiver() {
+        var br :BroadcastReceiver? = null
+        br= object : BroadcastReceiver() {
             override fun onReceive(p0: Context?, p1: Intent?) {
                 var id = p1?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
                 if (id == downloadID) {
-                    Toast.makeText(p0, "Completed", Toast.LENGTH_LONG).show()
+                    Toast.makeText(p0, "Completed Download Image", Toast.LENGTH_SHORT).show()
+                    requireContext().unregisterReceiver(br)
+                }else{
+                    Toast.makeText(p0, "Error", Toast.LENGTH_SHORT).show()
+                    requireContext().unregisterReceiver(br)
                 }
             }
-
         }
         requireContext().registerReceiver(br, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
-
     }
 
     fun haveStoragePermission(context: Context, tikTokModel: TikTokModel, type: Int): Boolean {
