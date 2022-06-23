@@ -17,6 +17,9 @@ data class TikTokEntity (
     val date: String,
     )
 
+enum class StateDownload{
+    WAITING, DOWNLOADING, DOWNLOADED, ERROR
+}
 
 fun convertTikTok(tikTokModel: TikTokModel, date: String, fileName: String): TikTokEntity {
     return TikTokEntity(

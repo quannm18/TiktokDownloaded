@@ -1,18 +1,13 @@
 package com.example.tiktokdownloaded.view.fragment
 
 import android.os.Bundle
-import android.text.TextUtils.replace
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import com.example.tiktokdownloaded.R
-import com.example.tiktokdownloaded.adapter.TikTokRoomAdapter
 import com.example.tiktokdownloaded.model.TikTokEntity
 import com.example.tiktokdownloaded.view.fragment.myfile_element.ListMyFileFragment
 import com.example.tiktokdownloaded.view.fragment.myfile_element.NoFoundFragment

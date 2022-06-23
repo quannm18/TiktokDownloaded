@@ -1,4 +1,4 @@
-package com.example.tiktokdownloaded.adapter
+package com.example.tiktokdownloaded.view.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

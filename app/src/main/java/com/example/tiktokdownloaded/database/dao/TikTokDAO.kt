@@ -1,4 +1,4 @@
-package com.example.tiktokdownloaded.dao
+package com.example.tiktokdownloaded.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -14,4 +14,6 @@ interface TikTokDAO {
 
     @Query("SELECT * FROM tiktok_table ORDER BY id DESC")
     fun readData():LiveData<List<TikTokEntity>>
+
+
 }

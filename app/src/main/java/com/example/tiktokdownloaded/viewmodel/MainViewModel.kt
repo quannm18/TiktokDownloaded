@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tiktokdownloaded.model.TikTokModel
-import com.example.tiktokdownloaded.repository.Repository
+import com.example.tiktokdownloaded.network.repository.Repository
 import kotlinx.coroutines.launch
 import retrofit2.Response
 

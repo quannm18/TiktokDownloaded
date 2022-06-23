@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.tiktokdownloaded.model.TikTokEntity
-import com.example.tiktokdownloaded.repository.TikTokRoomRepository
+import com.example.tiktokdownloaded.database.repository.TikTokRoomRepository
 import com.example.tiktokdownloaded.util.TikTokDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
