@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.tiktokdownloaded.dao.TikTokDAO
+import com.example.tiktokdownloaded.database.dao.TikTokDAO
 import com.example.tiktokdownloaded.model.TikTokEntity
 
 @Database(entities = [TikTokEntity::class], version = 1, exportSchema = false)

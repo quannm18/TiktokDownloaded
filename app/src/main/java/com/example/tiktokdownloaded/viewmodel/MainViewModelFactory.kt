@@ -1,10 +1,8 @@
-package com.example.tiktokdownloaded
+package com.example.tiktokdownloaded.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.tiktokdownloaded.repository.Repository
-import com.example.tiktokdownloaded.viewmodel.MainViewModel
-import retrofit2.Response
+import com.example.tiktokdownloaded.network.repository.Repository
 
 class MainViewModelFactory(val response: Repository) : ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

@@ -1,4 +1,4 @@
-package com.example.tiktokdownloaded.adapter
+package com.example.tiktokdownloaded.view.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tiktokdownloaded.R
-import com.example.tiktokdownloaded.model.TikTokEntity
 import com.example.tiktokdownloaded.model.TikTokRow
 import kotlinx.android.synthetic.main.row_child_item.view.*
 import java.text.SimpleDateFormat

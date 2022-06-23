@@ -1,4 +1,4 @@
-package com.example.tiktokdownloaded.repository
+package com.example.tiktokdownloaded.network.repository
 
 import com.example.tiktokdownloaded.model.TikTokModel
 import com.example.tiktokdownloaded.network.RetroInstance

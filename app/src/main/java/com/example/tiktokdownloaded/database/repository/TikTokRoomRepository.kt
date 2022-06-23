@@ -1,7 +1,7 @@
-package com.example.tiktokdownloaded.repository
+package com.example.tiktokdownloaded.database.repository
 
 import androidx.lifecycle.LiveData
-import com.example.tiktokdownloaded.dao.TikTokDAO
+import com.example.tiktokdownloaded.database.dao.TikTokDAO
 import com.example.tiktokdownloaded.model.TikTokEntity
 
 class TikTokRoomRepository (private val tikTokDAO: TikTokDAO){

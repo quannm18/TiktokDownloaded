@@ -1,20 +1,15 @@
-package com.example.tiktokdownloaded.view
+package com.example.tiktokdownloaded.view.activity
 
-import android.animation.Animator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.Handler
-import android.view.View
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
-import com.example.tiktokdownloaded.MainActivity
 import com.example.tiktokdownloaded.R
-import java.util.*
 
 class SplashActivity : AppCompatActivity() {
     private val imgLogoSplash: ImageView by lazy { findViewById<ImageView>(R.id.imgLogoSplash) }
