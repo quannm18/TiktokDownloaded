@@ -32,10 +32,22 @@
         <entry key="..\:/Android/FileSave/TiktokDownloaded/app/src/main/res/layout/row_myfile.xml" value="0.33" />
         <entry key="..\:/Android/FileSave/TiktokDownloaded/app/src/main/res/layout/row_preview_after_download.xml" value="0.365625" />
         <entry key="..\:/Android/FileSave/TiktokDownloaded/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
+        <entry key="..\:/AndroidStudio/AndroidStudioSet/jre/bin/TiktokDow/app/src/main/res/drawable-v24/custom_bg_popup.xml" value="0.1065" />
+        <entry key="..\:/AndroidStudio/AndroidStudioSet/jre/bin/TiktokDow/app/src/main/res/drawable/custom_option_vertical.xml" value="0.1" />
+        <entry key="..\:/AndroidStudio/AndroidStudioSet/jre/bin/TiktokDow/app/src/main/res/drawable/ic_rename.xml" value="0.1795" />
+        <entry key="..\:/AndroidStudio/AndroidStudioSet/jre/bin/TiktokDow/app/src/main/res/drawable/ic_rename_2.xml" value="0.1795" />
+        <entry key="..\:/AndroidStudio/AndroidStudioSet/jre/bin/TiktokDow/app/src/main/res/layout/activity_main.xml" value="0.1125" />
+        <entry key="..\:/AndroidStudio/AndroidStudioSet/jre/bin/TiktokDow/app/src/main/res/layout/dialog_rename.xml" value="0.136" />
+        <entry key="..\:/AndroidStudio/AndroidStudioSet/jre/bin/TiktokDow/app/src/main/res/layout/fragment_list_my_file.xml" value="0.12158054711246201" />
+        <entry key="..\:/AndroidStudio/AndroidStudioSet/jre/bin/TiktokDow/app/src/main/res/layout/fragment_my_file.xml" value="0.176" />
+        <entry key="..\:/AndroidStudio/AndroidStudioSet/jre/bin/TiktokDow/app/src/main/res/layout/row_myfile.xml" value="0.4" />
+        <entry key="..\:/AndroidStudio/AndroidStudioSet/jre/bin/TiktokDow/app/src/main/res/layout/row_options.xml" value="0.264" />
+        <entry key="..\:/AndroidStudio/AndroidStudioSet/jre/bin/TiktokDow/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudio/AndroidStudioSet/jre/bin/TiktokDow/app/src/main/res/menu/popup_menu.xml" value="0.264" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

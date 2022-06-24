@@ -10,4 +10,16 @@ class TikTokRoomRepository (private val tikTokDAO: TikTokDAO){
     fun addTikTok(tikTokEntity: TikTokEntity){
         tikTokDAO.addTikTokToDB(tikTokEntity)
     }
+
+    fun updateTikTok(tikTokEntity: TikTokEntity){
+        tikTokDAO.updateTikTok(tikTokEntity)
+    }
+
+    fun deleteTikTok(tikTokEntity: TikTokEntity){
+        tikTokDAO.deleteTikTok(tikTokEntity)
+    }
+
+    fun deleteAll(){
+        tikTokDAO.deleteAllTikTok()
+    }
 }

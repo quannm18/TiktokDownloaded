@@ -23,4 +23,14 @@
     <string name="tiktok">TIKTOK</string>
     <string name="video_download">VIDEO DOWNLOAD</string>
     <string name="search_view">Search anythings you want...</string>
+    <string name="repost">Repost</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="depost">Depost</string>
+    <string name="share">Share</string>
+    <string name="split_audio">Split Audio</string>
+    <string name="rename">Rename</string>
+    <string name="new_title">New title</string>
+    <string name="change">Change</string>
+    <string name="close">Close</string>
 </resources>

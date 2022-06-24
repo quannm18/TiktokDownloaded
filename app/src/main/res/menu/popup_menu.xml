@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+
+    <item android:id="@+id/btnRepostPopupmenu"
+        android:visible="true"
+        android:icon="@drawable/ic_refresh"
+        
+        android:title="@string/repost"/>
+    <item android:id="@+id/btnSharePopupmenu"
+        android:visible="true"
+        android:icon="@drawable/ic_share_bottom_option"
+        
+        android:title="@string/share"/>
+    <item android:id="@+id/btnRenamePopupmenu"
+        android:visible="true"
+        android:icon="@drawable/ic_rename_2"
+        
+        android:title="@string/rename"/>
+    <item android:id="@+id/btn_split_audio"
+        android:visible="true"
+        
+        android:icon="@drawable/ic_majesticons_music_note_line"
+        android:title="@string/split_audio"/>
+    <item android:id="@+id/btnDeletePopupmenu"
+        android:visible="true"
+        
+        android:icon="@drawable/ic_trash_line"
+        android:title="@string/delete"/>
+</menu>
