@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="42dp"
+    android:layout_marginRight="42dp"
+    app:cardElevation="3dp"
+    app:cardCornerRadius="100dp"
+    style="@style/MyThemeOverlayAlertDialog"
+    android:theme="@style/MyThemeOverlayAlertDialog"
+    android:background="@drawable/custom_option_vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="4"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:paddingTop="8dp"
+            android:id="@+id/btnRepostBottomMenu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
+            android:drawableTop="@drawable/ic_refresh"
+            android:fontFamily="@font/nova"
+            android:text="@string/repost"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <androidx.appcompat.widget.AppCompatButton
+
+            android:paddingTop="8dp"
+            android:id="@+id/btnShareBottomMenu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
+            android:drawableTop="@drawable/ic_majesticons_reply_line"
+            android:fontFamily="@font/nova"
+            android:text="Share"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:paddingTop="8dp"
+            android:id="@+id/btnDeleteBottomMenu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
+            android:drawableTop="@drawable/ic_trash_line"
+            android:fontFamily="@font/nova"
+            android:text="@string/delete"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:paddingTop="8dp"
+            android:id="@+id/btnCancelBottomMenu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
+            android:drawableTop="@drawable/ic_x_circle"
+            android:fontFamily="@font/nova"
+            android:text="@string/cancel"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

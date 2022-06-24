@@ -9,12 +9,12 @@
         android:visible="true"
         android:icon="@drawable/ic_myfile"
         android:title="@string/my_file"/>
-    <item android:id="@+id/btm_trend"
-        android:visible="true"
-        android:icon="@drawable/ic_trending"
-        android:title="@string/trending"/>
-    <item android:id="@+id/btm_explore"
-        android:visible="true"
-        android:icon="@drawable/ic_explore"
-        android:title="@string/explore"/>
+<!--    <item android:id="@+id/btm_trend"-->
+<!--        android:visible="true"-->
+<!--        android:icon="@drawable/ic_trending"-->
+<!--        android:title="@string/trending"/>-->
+<!--    <item android:id="@+id/btm_explore"-->
+<!--        android:visible="true"-->
+<!--        android:icon="@drawable/ic_explore"-->
+<!--        android:title="@string/explore"/>-->
 </menu>

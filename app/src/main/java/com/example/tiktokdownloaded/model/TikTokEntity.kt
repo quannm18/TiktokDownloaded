@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class TikTokEntity (
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val title: String,
+    var title: String,
     val urlVideo: String,
     val urlMusic: String,
     val urlThumbnail: String,
