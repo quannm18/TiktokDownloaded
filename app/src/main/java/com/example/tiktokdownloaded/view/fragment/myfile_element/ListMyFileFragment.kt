@@ -2,11 +2,16 @@ package com.example.tiktokdownloaded.view.fragment.myfile_element
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.StrictMode
+import android.os.StrictMode.VmPolicy
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,11 +19,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tiktokdownloaded.R
 import com.example.tiktokdownloaded.model.TikTokEntity
 import com.example.tiktokdownloaded.model.TikTokRow
+import com.example.tiktokdownloaded.util.listener.MyOnLongClickListener
 import com.example.tiktokdownloaded.view.adapter.TikTokChildAdapter
+import com.example.tiktokdownloaded.view.update_download.UpdateDownload
 import com.example.tiktokdownloaded.viewmodel.TikTokViewModel
+import kotlinx.android.synthetic.main.fragment_list_my_file.*
 import kotlinx.android.synthetic.main.fragment_list_my_file.view.*
+import kotlinx.android.synthetic.main.row_options.*
 
-class ListMyFileFragment : Fragment() {
+
+class ListMyFileFragment : Fragment(), MyOnLongClickListener{
     private lateinit var mTikTokViewModel: TikTokViewModel
     private var listTitle: Set<String> = mutableSetOf()
     private var listEntity: List<TikTokEntity> = mutableListOf()
@@ -55,9 +65,8 @@ class ListMyFileFragment : Fragment() {
                 val tikTokRow = TikTokRow(title, element)
                 listParent.add(tikTokRow)
             }
-            adapter.setTikTokList(tikTokEntity)
+            activity?.let { adapter.setTikTokList(tikTokEntity, it, this, viewLifecycleOwner) }
             adapter.notifyDataSetChanged()
-
         })
 
         view.svMyFile.setOnEditorActionListener(TextView.OnEditorActionListener { textView, i, keyEvent ->
@@ -73,21 +82,25 @@ class ListMyFileFragment : Fragment() {
                 val dialog = AlertDialog.Builder(requireContext())
                 dialog.setTitle("Alert")
                 dialog.setMessage("Data not found")
-                dialog.setPositiveButton("Ok", DialogInterface.OnClickListener { dialogInterface, i ->
-                    alertDialog.dismiss()
-                })
+                dialog.setPositiveButton(
+                    "Ok",
+                    DialogInterface.OnClickListener { dialogInterface, i ->
+                        alertDialog.dismiss()
+                    })
                 alertDialog = dialog.create()
                 alertDialog.show()
             } else {
                 val dialog = AlertDialog.Builder(requireContext())
                 dialog.setTitle("Alert")
                 dialog.setMessage("Found")
-                dialog.setPositiveButton("Ok", DialogInterface.OnClickListener { dialogInterface, i ->
-                    alertDialog.dismiss()
-                })
+                dialog.setPositiveButton(
+                    "Ok",
+                    DialogInterface.OnClickListener { dialogInterface, i ->
+                        alertDialog.dismiss()
+                    })
                 alertDialog = dialog.create()
                 alertDialog.show()
-                adapter.setTikTokList(listFind)
+                activity?.let { adapter.setTikTokList(listFind, it, this, viewLifecycleOwner) }
                 adapter.notifyDataSetChanged()
                 rcvMain.adapter = adapter
             }
@@ -104,4 +117,65 @@ class ListMyFileFragment : Fragment() {
                 }
             }
     }
+
+    override fun itemCheckBoxLongClickListener(isShow: Boolean) {
+        if (isShow) {
+            popupBottomMenu.visibility = View.VISIBLE
+        } else {
+            popupBottomMenu.visibility = View.GONE
+        }
+    }
+
+    override fun cancelDialog() {
+        btnCancelBottomMenu.setOnClickListener {
+            popupBottomMenu.visibility = View.GONE
+        }
+    }
+
+    override fun deleteThisItem(item: TikTokEntity) {
+        if (item != null) {
+            btnDeleteBottomMenu.setOnClickListener{
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("Delete")
+                builder.setMessage("Are you wanting to delete  ${item.title}")
+                builder.setPositiveButton("Yes") { _, _ ->
+                    mTikTokViewModel.deleteTikTok(item)
+                    Toast.makeText(
+                        requireContext(),
+                        "Successfully removed ${item.title}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                }.setNegativeButton("No"){
+                        _,_->
+                    alertDialog.dismiss()
+                }
+                alertDialog = builder.create()
+                alertDialog.show()
+            }
+        }
+    }
+
+    override fun shareItem(item: TikTokEntity) {
+        btnShareBottomMenu.setOnClickListener {
+            startActivity(
+                Intent.createChooser(
+                    Intent().setAction(Intent.ACTION_SEND)
+                        .setType("video/*")
+                        .setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                        .putExtra(
+                            Intent.EXTRA_STREAM,
+                            Uri.parse(item.urlVideo)
+                        ), "share_video"
+                )
+            )
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val builder = VmPolicy.Builder()
+        StrictMode.setVmPolicy(builder.build())
+    }
+
 }

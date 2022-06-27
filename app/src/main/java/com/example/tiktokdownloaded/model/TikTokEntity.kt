@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class TikTokEntity (
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val title: String,
+    var title: String,
     val urlVideo: String,
     val urlMusic: String,
     val urlThumbnail: String,
@@ -15,13 +15,14 @@ data class TikTokEntity (
     val duration: String,
     val fileName: String,
     val date: String,
+    val process: Int,
     )
 
 enum class StateDownload{
     WAITING, DOWNLOADING, DOWNLOADED, ERROR
 }
 
-fun convertTikTok(tikTokModel: TikTokModel, date: String, fileName: String): TikTokEntity {
+fun convertTikTok(tikTokModel: TikTokModel, date: String, fileName: String, mProcess: Int): TikTokEntity {
     return TikTokEntity(
         id = 0,
         title = tikTokModel.awemeDetail!!.desc,
@@ -31,6 +32,7 @@ fun convertTikTok(tikTokModel: TikTokModel, date: String, fileName: String): Tik
         author = tikTokModel.awemeDetail.author.nickname,
         duration = tikTokModel.awemeDetail.video.duration,
         fileName = fileName,
-        date = date
+        date = date,
+        process = mProcess
     )
 }

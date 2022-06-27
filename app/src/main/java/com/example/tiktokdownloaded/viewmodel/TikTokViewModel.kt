@@ -4,16 +4,16 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.tiktokdownloaded.model.TikTokEntity
 import com.example.tiktokdownloaded.database.repository.TikTokRoomRepository
+import com.example.tiktokdownloaded.model.TikTokEntity
 import com.example.tiktokdownloaded.util.TikTokDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class TikTokViewModel(application: Application) : AndroidViewModel(application) {
 
-    val readAllData : LiveData<List<TikTokEntity>>
-    private val tikTokRoomRepository : TikTokRoomRepository
+    val readAllData: LiveData<List<TikTokEntity>>
+    private val tikTokRoomRepository: TikTokRoomRepository
 
     init {
         val mTikTokDAO = TikTokDatabase.getDatabase(application).tikTokDAO()
@@ -22,9 +22,26 @@ class TikTokViewModel(application: Application) : AndroidViewModel(application) 
         readAllData = tikTokRoomRepository.readAllData
     }
 
-    fun addTikTok(tikTokEntity: TikTokEntity){
+    fun addTikTok(tikTokEntity: TikTokEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             tikTokRoomRepository.addTikTok(tikTokEntity)
+        }
+    }
+
+    fun updateTikTok(tikTokEntity: TikTokEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            tikTokRoomRepository.updateTikTok(tikTokEntity)
+        }
+    }
+
+    fun deleteTikTok(tikTokEntity: TikTokEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            tikTokRoomRepository.deleteTikTok(tikTokEntity)
+        }
+    }
+    fun deleteAll() {
+        viewModelScope.launch(Dispatchers.IO) {
+            tikTokRoomRepository.deleteAll()
         }
     }
 

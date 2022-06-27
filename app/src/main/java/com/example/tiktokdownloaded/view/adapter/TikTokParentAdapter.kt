@@ -15,6 +15,7 @@ import java.util.*
 class TikTokParentAdapter : RecyclerView.Adapter<TikTokParentAdapter.TikTokParentViewHolder>() {
     private var listTikTokParent : List<TikTokRow> = emptyList()
     private  var adapter: TikTokChildAdapter = TikTokChildAdapter()
+
      class TikTokParentViewHolder(itemView:View) : RecyclerView.ViewHolder(itemView){
 
     }
@@ -33,7 +34,7 @@ class TikTokParentAdapter : RecyclerView.Adapter<TikTokParentAdapter.TikTokParen
             holder.itemView.tvSectionHeaderRow.text = "Today"
         }
         adapter = TikTokChildAdapter()
-        adapter.setTikTokList(tikTokParent.listTikTokEntity)
+//        adapter.setTikTokList(tikTokParent.listTikTokEntity )
         val layoutManager = LinearLayoutManager(holder.itemView.context)
         holder.itemView.rcvChildRow.layoutManager = layoutManager
         holder.itemView.rcvChildRow.adapter = adapter

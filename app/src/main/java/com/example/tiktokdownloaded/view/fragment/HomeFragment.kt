@@ -20,16 +20,20 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.example.tiktokdownloaded.R
 import com.example.tiktokdownloaded.model.TikTokEntity
 import com.example.tiktokdownloaded.model.TikTokModel
 import com.example.tiktokdownloaded.network.repository.Repository
+import com.example.tiktokdownloaded.util.DateString.Companion.dateInString
+import com.example.tiktokdownloaded.view.update_download.UpdateDownload
 import com.example.tiktokdownloaded.viewmodel.MainViewModel
 import com.example.tiktokdownloaded.viewmodel.MainViewModelFactory
 import com.example.tiktokdownloaded.viewmodel.TikTokViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.time.DurationUnit
@@ -45,7 +49,11 @@ class HomeFragment : Fragment() {
     private var isSuccess: Boolean = false
     private var localUriVideo = ""
 
+    private var process: Long = 0;
     private lateinit var fileNameDB: String
+
+    private lateinit var updateDownload: UpdateDownload
+    private var percent: Long = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,7 +64,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        tikTokModel = TikTokModel(null)
         view.layoutPreView.visibility = View.GONE
         view.btnDownloadVideo.visibility = View.GONE
         view.btnDownloadAudio.visibility = View.GONE
@@ -64,6 +72,7 @@ class HomeFragment : Fragment() {
 
         tikTokViewModel = ViewModelProvider(this).get(TikTokViewModel::class.java)
 
+        updateDownload = ViewModelProvider(this).get(UpdateDownload::class.java)
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
@@ -82,22 +91,6 @@ class HomeFragment : Fragment() {
             }
         }
 
-        imgPreviewRow.setOnClickListener(View.OnClickListener {
-            tikTokViewModel.addTikTok(
-                TikTokEntity(
-                    0,
-                    "abc",
-                    "https://v16m.byteicdn.com/1a805e6e130da6ebbde8c45f31968362/62b19137/video/tos/useast2a/tos-useast2a-pve-0037-aiso/93aa4c8bcdbc43e7b4d9b823ec7d68cf/?a=0&ch=0&cr=0&dr=0&lr=all&cd=0%7C0%7C0%7C0&cv=1&br=1954&bt=977&btag=80000&cs=0&ds=6&ft=L4cJSoTzDJhNvyBiZqBaRff3nfpBO5njkhp2z7&mime_type=video_mp4&qs=0&rc=ZzVkMzs2ZjxpMzc1OGU1NEBpanJ1NTc6Zm9nZDMzZjgzM0A1Ml4yM182XzUxXjRiL15iYSM2XnMxcjRfLmVgLS1kL2Nzcw%3D%3D&l=202206210336340101901920202060416B&cc=10",
-                    "https://v16m.byteicdn.com/1a805e6e130da6ebbde8c45f31968362/62b19137/video/tos/useast2a/tos-useast2a-pve-0037-aiso/93aa4c8bcdbc43e7b4d9b823ec7d68cf/?a=0&ch=0&cr=0&dr=0&lr=all&cd=0%7C0%7C0%7C0&cv=1&br=1954&bt=977&btag=80000&cs=0&ds=6&ft=L4cJSoTzDJhNvyBiZqBaRff3nfpBO5njkhp2z7&mime_type=video_mp4&qs=0&rc=ZzVkMzs2ZjxpMzc1OGU1NEBpanJ1NTc6Zm9nZDMzZjgzM0A1Ml4yM182XzUxXjRiL15iYSM2XnMxcjRfLmVgLS1kL2Nzcw%3D%3D&l=202206210336340101901920202060416B&cc=10",
-                    "https://v16m.byteicdn.com/1a805e6e130da6ebbde8c45f31968362/62b19137/video/tos/useast2a/tos-useast2a-pve-0037-aiso/93aa4c8bcdbc43e7b4d9b823ec7d68cf/?a=0&ch=0&cr=0&dr=0&lr=all&cd=0%7C0%7C0%7C0&cv=1&br=1954&bt=977&btag=80000&cs=0&ds=6&ft=L4cJSoTzDJhNvyBiZqBaRff3nfpBO5njkhp2z7&mime_type=video_mp4&qs=0&rc=ZzVkMzs2ZjxpMzc1OGU1NEBpanJ1NTc6Zm9nZDMzZjgzM0A1Ml4yM182XzUxXjRiL15iYSM2XnMxcjRfLmVgLS1kL2Nzcw%3D%3D&l=202206210336340101901920202060416B&cc=10",
-                    "Quan Ngo",
-                    "09:54",
-                    "abc.mp4",
-                    "18/09/2002"
-                )
-            )
-            Toast.makeText(requireContext(), "Insert", Toast.LENGTH_SHORT).show()
-        })
         btnDownload.setOnClickListener(View.OnClickListener {
 
             val txtFind = tilFind.editText!!.text.toString()
@@ -133,7 +126,7 @@ class HomeFragment : Fragment() {
 
                     view.tvTimeVideoRow.text = timeString
                     view.tvTitleRow.text = titleVideo
-                    view.tvSubtitle.text = "@${tagName}"
+                    view.tvSubtitle.text = "@${tagName.trim()}"
 
                     isShow = 1
                 } else {
@@ -163,12 +156,10 @@ class HomeFragment : Fragment() {
     private fun getIDFromUrl(txtFind: String): Any {
         var id = ""
         var indexOfID: Int = 0
-        var demoID = "7103276878366051611"
         if (txtFind != null) {
             indexOfID = txtFind.indexOf("/video/", 0, true).toInt()
-            Log.e("Log", "index: $indexOfID - ${indexOfID + demoID.length} - ${txtFind.length}")
-
-            id = txtFind.substring(indexOfID + 7 until indexOfID + demoID.length + 7)
+            val indexOfCH = txtFind.indexOf("?", 0, true).toInt()
+            id = txtFind.substring(indexOfID + 7 until indexOfCH)
         }
         return id
     }
@@ -208,8 +199,33 @@ class HomeFragment : Fragment() {
         downloadID =
             downloadManager.enqueue(request)
 
-        var br :BroadcastReceiver? = null
-        br= object : BroadcastReceiver() {
+        val temp = 0
+        viewModel.viewModelScope.launch {
+            withContext(Dispatchers.Default) {
+                Log.e("Log 1", "111111111111")
+                try {
+                    while (isActive) {
+                        view?.let { queryStatus(it, downloadManager, downloadID, this) }
+                        updateDownload.setTotal(percent)
+                        Log.e("okk", "$percent")
+
+                        delay(1200)
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                } finally {
+
+                }
+            }
+        }
+        updateDownload.getTotal().observe(viewLifecycleOwner){
+            process = it
+            tikTokViewModel.updateTikTok(convertTikTok(tikTokModel, dateInString, fileName, process.toInt()))
+
+        }
+
+        var br: BroadcastReceiver? = null
+        br = object : BroadcastReceiver() {
             override fun onReceive(p0: Context?, p1: Intent?) {
                 var id = p1?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
 
@@ -219,7 +235,6 @@ class HomeFragment : Fragment() {
                 val cursor: Cursor = downloadManager.query(DownloadManager.Query().setFilterById(id))
 
                 if (cursor.moveToFirst()) {
-
                     val status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
                     if (status == DownloadManager.STATUS_SUCCESSFUL) {
                         // download is successful
@@ -229,19 +244,22 @@ class HomeFragment : Fragment() {
                         val date = getCurrentDateTime()
                         val dateInString = date.toString("dd/MM/yyyy")
                         localUriVideo = cursor.getString(cursor.getColumnIndex("local_uri"))
-                        val tikTokEntity = convertTikTok(tikTokModel, dateInString, fileName)
+                        val tikTokEntity = convertTikTok(tikTokModel, dateInString, fileName, process.toInt())
                         tikTokViewModel.addTikTok(tikTokEntity)
                         Toast.makeText(requireContext(), "Insert", Toast.LENGTH_SHORT).show()
                         requireContext().unregisterReceiver(br)
+//                        holderScope.cancel()
                     } else {
                         // download is cancelled
                         Toast.makeText(p0, "Error", Toast.LENGTH_SHORT).show()
                         requireContext().unregisterReceiver(br)
+//                        holderScope.cancel()
                     }
                 } else {
                     // download is cancelled
                     Toast.makeText(p0, "Error", Toast.LENGTH_SHORT).show()
                     requireContext().unregisterReceiver(br)
+//                    holderScope.cancel()
                 }
 
             }
@@ -300,6 +318,7 @@ class HomeFragment : Fragment() {
         var br :BroadcastReceiver? = null
         br= object : BroadcastReceiver() {
             override fun onReceive(p0: Context?, p1: Intent?) {
+
                 var id = p1?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
                 if (id == downloadID) {
                     Toast.makeText(p0, "Completed Download Image", Toast.LENGTH_SHORT).show()
@@ -363,7 +382,7 @@ class HomeFragment : Fragment() {
         return pasteData
     }
 
-    fun convertTikTok(tikTokModel: TikTokModel, date: String, fileName: String): TikTokEntity {
+    fun convertTikTok(tikTokModel: TikTokModel, date: String, fileName: String, mProcess: Int): TikTokEntity {
         return TikTokEntity(
             id = 0,
             title = tikTokModel.awemeDetail!!.desc,
@@ -373,7 +392,8 @@ class HomeFragment : Fragment() {
             author = tikTokModel.awemeDetail.author.nickname,
             duration = tikTokModel.awemeDetail.video.duration,
             fileName = fileName,
-            date = date
+            date = date,
+            process = mProcess
         )
     }
 
@@ -384,5 +404,74 @@ class HomeFragment : Fragment() {
 
     fun getCurrentDateTime(): Date {
         return Calendar.getInstance().time
+    }
+
+    private suspend fun queryStatus(v: View, mgr: DownloadManager, idD: Long, it: CoroutineScope) {
+        val c: Cursor = mgr.query(DownloadManager.Query().setFilterById(idD))
+        if (c == null) {
+            Toast.makeText(
+                activity, "No found",
+                Toast.LENGTH_LONG
+            ).show()
+        } else {
+            c.moveToFirst()
+            percent = (setData(c.getLong(c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR)), c.getLong(c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))))
+
+            Log.d(
+                "abc", "COLUMN_BYTES_DOWNLOADED_SO_FAR: "
+                        + c.getLong(c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
+            )
+
+            Log.d(
+                "abc", "TOTAL SIZE: "
+                        + c.getString(c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
+            )
+            Log.d(
+                "abc", "COLUMN_STATUS: "
+                        + c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS))
+            )
+            Log.d(
+                "cancel", "COLUMN_REASON: "
+                        + statusMessage(c, it, c.getLong(c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR)), c.getLong(c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES)))
+            )
+            Log.d(
+                "cancel", "---------------------------"
+            )
+            c.close()
+        }
+    }
+
+    private fun statusMessage(c: Cursor, it: CoroutineScope, current: Long, total: Long): String? {
+        var msg = "???"
+        msg = when (c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS))) {
+            DownloadManager.STATUS_FAILED -> {
+                it.cancel()
+                "Failed"
+            }
+            DownloadManager.STATUS_PAUSED -> {
+
+                "Pause"
+            }
+            DownloadManager.STATUS_PENDING -> {
+
+                "Pending"
+            }
+            DownloadManager.STATUS_RUNNING -> {
+                "Running"
+            }
+            DownloadManager.STATUS_SUCCESSFUL -> {
+                it.cancel()
+                "Success"
+            }
+            else -> {
+                it.cancel()
+                "FAILED"
+            }
+        }
+        return msg
+    }
+
+    private suspend fun setData(current: Long, total: Long): Long {
+        return ((current * 100 / total));
     }
 }

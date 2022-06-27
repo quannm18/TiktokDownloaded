@@ -38,7 +38,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="8dp"
                 android:background="@drawable/custom_background_searchview"
-                android:drawableEnd="@drawable/ic_majesticons_camera_line"
+                android:drawableEnd="@drawable/ic_search"
                 android:hint="@string/search_view"
                 android:paddingLeft="32dp"
                 android:paddingRight="16dp"
@@ -51,4 +51,16 @@
                 tools:ignore="TouchTargetSizeCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <include
+        android:id="@+id/popupBottomMenu"
+        layout="@layout/row_options"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="14dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintWidth_percent="0.8" />
 </androidx.constraintlayout.widget.ConstraintLayout>
